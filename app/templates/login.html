@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Tizimga kirish{% endblock %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-6">
+            <h1 class="fw-bold">Tizimga kirish</h1>
+            <p class="mb-4">Qaytib kelganingizdan xursandmiz! Iltimos, tizimga kirish uchun maʼlumotlaringizni kiriting.</p>
+            <form action="{{ url_for('auth.login') }}" method="post">
+                {{ form.hidden_tag() }}
+                <div class="mb-4">
+                    {{ form.username.label(class="form-label") }}
+                    {{ form.username(class="form-control" + (' is-invalid' if form.username.errors else ''), placeholder="Foydalanuvchi nomi") }}
+                    <div class="text-muted small">{{ form.username.description }}</div>
+                    {% for error in form.username.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="mb-4">
+                    {{ form.password.label(class="form-label") }}
+                    {{ form.password(class="form-control" + (' is-invalid' if form.password.errors else ''), placeholder="Parol") }}
+                    <div class="text-muted small">{{ form.password.description }}</div>
+                    {% for error in form.password.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                {{ form.submit(class="btn btn-dark w-100") }}
+            </form>
+            <p class="text-center mt-4">
+                <span class="text-danger d-block">
+                    <i class="bi bi-exclamation-triangle-fill"></i> Ushbu tizim faqat muallif uchun mo‘ljallangan.
+                </span>
+                <span class="text-body-secondary">Agar siz tizimdan foydalanmoqchi bo‘lsangiz, </span>
+                <a href="mailto:diyorbek.qodirboyev05@gmail.com" target="_blank">bogʻlaning</a>.
+            </p>
+        </div>
+    </div>
+{% endblock %}
