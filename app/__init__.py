@@ -23,6 +23,10 @@ def create_app():
     csrf.init_app(app)
     login_manager.init_app(app)
 
+    login_manager.login_message = 'Ushbu sahifani ko‘rish uchun tizimga kiring!'
+    login_manager.login_message_category = 'info'
+    login_manager.login_view = 'auth.login'
+
     from .models import User
 
     @login_manager.user_loader
