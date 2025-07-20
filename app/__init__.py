@@ -16,17 +16,32 @@ def create_app():
     app.secret_key = os.getenv('SECRET_KEY', 'dev-fallback-key')
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///fikrlog.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['ADMIN_USERNAME'] = os.getenv('ADMIN_USERNAME')
+    app.config['ADMIN_PASSWORD_HASH'] = os.getenv('ADMIN_PASSWORD_HASH')
 
     db.init_app(app)
     csrf.init_app(app)
     login_manager.init_app(app)
 
     from .models import User
+
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
 
     from . import routes
     app.register_blueprint(routes.bp)
+
+    with app.app_context():
+        db.create_all()
+        admin = User.query.filter_by(username=app.config['ADMIN_USERNAME']).first()
+        if not admin:
+            new_admin = User(username=app.config['ADMIN_USERNAME'], password=app.config['ADMIN_PASSWORD_HASH'])
+            db.session.add(new_admin)
+            db.session.commit()
+            print(" * Admin user created.")
+        else:
+            print(" * Admin user already exists.")
+        print(f" * Database connected: {app.config['SQLALCHEMY_DATABASE_URI']}")
 
     return app
