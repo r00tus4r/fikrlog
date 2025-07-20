@@ -8,7 +8,7 @@ import dotenv
 dotenv.load_dotenv()
 
 db = SQLAlchemy()
-# login_manager = LoginManager()
+login_manager = LoginManager()
 csrf = CSRFProtect()
 
 def create_app():
@@ -19,5 +19,10 @@ def create_app():
 
     db.init_app(app)
     csrf.init_app(app)
+
+    from .models import User
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
 
     return app
