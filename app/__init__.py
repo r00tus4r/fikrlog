@@ -19,6 +19,7 @@ def create_app():
 
     db.init_app(app)
     csrf.init_app(app)
+    login_manager.init_app(app)
 
     from .models import User
     @login_manager.user_loader
