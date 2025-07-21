@@ -24,3 +24,8 @@ def create_fikr():
         return redirect(url_for('routes.index'))
     return render_template('create.html', form=form)
 
+@bp.route('/read/<int:id>')
+@login_required
+def read_fikr(id):
+    fikr = Fikr.query.get_or_404(id)
+    return render_template('read.html', fikr=fikr)

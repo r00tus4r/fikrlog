@@ -8,7 +8,7 @@
             {% if fikrs %}
                 <div class="list-group list-group-flush">
                     {% for fikr in fikrs %}
-                        <a href="#" class="list-group-item list-group-item-action">{{ fikr.title }}</a>
+                        <a href="{{ url_for('routes.read_fikr', id=fikr.id) }}" class="list-group-item list-group-item-action">{{ fikr.title }}</a>
                     {% endfor %}
                 </div>
             {% else %}
