@@ -12,6 +12,7 @@
                     <a href="{{ url_for('auth.login') }}" class="nav-link {% if request.endpoint == 'auth.login' %}active{% endif %}">Tizimga kirish</a>
                 {% else %}
                     <a href="{{ url_for('routes.index') }}" class="nav-link {% if request.endpoint == 'routes.index' %}active{% endif %}">Bosh sahifa</a>
+                    <a href="{{ url_for('routes.create_fikr') }}" class="nav-link {% if request.endpoint == 'routes.create_fikr' %}active{% endif %}">Qoʻshish</a>
                     <a href="{{ url_for('auth.logout') }}" class="nav-link {% if request.endpoint == 'auth.logout' %}active{% endif %}">Chiqish</a>
                 {% endif %}
             </div>
