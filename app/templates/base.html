@@ -25,6 +25,7 @@
 </head>
 
 <body>
+    {% include 'navbar.html' %}
     <main class="container my-5">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}

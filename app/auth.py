@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user
 from .forms import LoginForm
 from .models import User
 
@@ -20,3 +20,9 @@ def login():
         else:
             flash('Foydalanuvchi nomi yoki parol noto‘g‘ri', category='danger')
     return render_template('login.html', form=form)
+
+@bp.route('/logout')
+def logout():
+    logout_user()
+    flash('Siz tizimdan chiqdingiz.', category='info')
+    return redirect(url_for('routes.index'))
