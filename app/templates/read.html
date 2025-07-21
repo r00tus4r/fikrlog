@@ -13,8 +13,8 @@
         </h6>
         <p class="fs-5 mb-0">{{ fikr.content }}</p>
         <hr class="my-5">
-        <a href="{{ url_for('routes.update_fikr', id=fikr.id) }}" class="btn btn-dark">Yanglish</a>
-        <a href="{{ url_for('routes.delete_fikr', id=fikr.id) }}" class="btn btn-danger">Oʻchirish</a>
+        <a href="{{ url_for('routes.update_fikr', id=fikr.id) }}" class="btn btn-dark"><i class="bi bi-pencil-square"></i> Yanglish</a>
+        <a href="{{ url_for('routes.delete_fikr', id=fikr.id) }}" class="btn btn-danger"><i class="bi bi-trash3"></i> Oʻchirish</a>
     </div>
 </div>
 {% endblock %}

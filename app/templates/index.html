@@ -6,7 +6,7 @@
             <h1 class="fw-bold">Bosh sahifa</h1>
             <p class="mb-4">Yozilgan barcha fikrlaringiz shu yerda saqlanadi.</p>
             {% if fikrs %}
-                <div class="list-group list-group-flush">
+                <div class="list-group">
                     {% for fikr in fikrs %}
                         <a href="{{ url_for('routes.read_fikr', id=fikr.id) }}" class="list-group-item list-group-item-action">{{ fikr.title }}</a>
                     {% endfor %}
