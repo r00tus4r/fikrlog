@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Yaratish{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="fw-bold">Yangi fikr qoʻshish</h1>
+        <p class="mb-4">Quyidagi forma orqali oʻz fikringizni yozib qoldiring.</p>
+        <form action="{{ url_for('routes.create_fikr') }}" method="post">
+            {{ form.hidden_tag() }}
+            <div class="mb-4">
+                {{ form.title.label(class="form-label") }}
+                {{ form.title(class="form-control" + (' is-invalid' if form.title.errors else ''), placeholder="Sarlavha") }}
+                <div class="text-muted small">{{ form.title.description }}</div>
+                {% for error in form.title.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="mb-4">
+                {{ form.content.label(class="form-label") }}
+                {{ form.content(class="form-control" + (' is-invalid' if form.content.errors else ''), rows=6, placeholder="Fikringizni shu yerga yozing...") }}
+                <div class="text-muted small">{{ form.content.description }}</div>
+                {% for error in form.content.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            </div>
+            {{ form.submit(class="btn btn-dark w-100") }}
+        </form>
+    </div>
+</div>
+{% endblock %}
