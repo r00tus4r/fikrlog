@@ -29,3 +29,19 @@ def create_fikr():
 def read_fikr(id):
     fikr = Fikr.query.get_or_404(id)
     return render_template('read.html', fikr=fikr)
+
+@bp.route('/update/<int:id>', methods=['GET', 'POST'])
+@login_required
+def update_fikr(id):
+    fikr = Fikr.query.get_or_404(id)
+    form = FikrForm()
+    if form.validate_on_submit():
+        fikr.title = form.title.data
+        fikr.content = form.content.data
+        db.session.commit()
+        flash('Fikr muvaffaqiyatli yangilandi!', category='success')
+        return redirect(url_for('routes.index'))
+    form.title.data = fikr.title
+    form.content.data = fikr.content
+    return render_template('update.html', form=form, fikr=fikr)
+
