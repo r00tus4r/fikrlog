@@ -1,0 +1,1 @@
+<a href="https://www.flaticon.com/free-icons/thinking" title="thinking icons">Thinking icons created by Freepik - Flaticon</a>
