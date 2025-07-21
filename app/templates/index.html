@@ -3,7 +3,19 @@
 {% block content %}
     <div class="row">
         <div class="col-12">
-            <h1>Bosh sahifa</h1>
+            <h1 class="fw-bold">Bosh sahifa</h1>
+            <p class="mb-4">Yozilgan barcha fikrlaringiz shu yerda saqlanadi.</p>
+            {% if fikrs %}
+                <div class="list-group list-group-flush">
+                    {% for fikr in fikrs %}
+                        <a href="#" class="list-group-item list-group-item-action">{{ fikr.title }}</a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info text-center" role="alert">
+                    Hozircha hech qanday fikr mavjud emas.
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

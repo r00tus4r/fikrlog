@@ -9,7 +9,8 @@ bp = Blueprint('routes', __name__)
 @bp.route('/')
 @login_required
 def index():
-    return render_template('index.html')
+    fikrs = Fikr.query.order_by(Fikr.created_at.desc()).all()
+    return render_template('index.html', fikrs=fikrs)
 
 @bp.route('/create', methods=['GET', 'POST'])
 def create_fikr():
