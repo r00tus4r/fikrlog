@@ -46,6 +46,7 @@ def update_fikr(id):
     return render_template('update.html', form=form, fikr=fikr)
 
 @bp.route('/delete/<int:id>')
+@login_required
 def delete_fikr(id):
     fikr = Fikr.query.get_or_404(id)
     db.session.delete(fikr)
