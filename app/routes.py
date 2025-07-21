@@ -45,3 +45,10 @@ def update_fikr(id):
     form.content.data = fikr.content
     return render_template('update.html', form=form, fikr=fikr)
 
+@bp.route('/delete/<int:id>')
+def delete_fikr(id):
+    fikr = Fikr.query.get_or_404(id)
+    db.session.delete(fikr)
+    db.session.commit()
+    flash('Fikr muvaffaqiyatli oʻchirildi!', category='success')
+    return redirect(url_for('routes.index'))

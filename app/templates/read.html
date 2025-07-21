@@ -14,7 +14,7 @@
         <p class="fs-5 mb-0">{{ fikr.content }}</p>
         <hr class="my-5">
         <a href="{{ url_for('routes.update_fikr', id=fikr.id) }}" class="btn btn-dark">Yanglish</a>
-        <a href="#" class="btn btn-danger">Oʻchirish</a>
+        <a href="{{ url_for('routes.delete_fikr', id=fikr.id) }}" class="btn btn-danger">Oʻchirish</a>
     </div>
 </div>
 {% endblock %}
