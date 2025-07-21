@@ -13,6 +13,7 @@ def index():
     return render_template('index.html', fikrs=fikrs)
 
 @bp.route('/create', methods=['GET', 'POST'])
+@login_required
 def create_fikr():
     form = FikrForm()
     if form.validate_on_submit():
@@ -22,3 +23,4 @@ def create_fikr():
         flash('Fikr muvaffaqiyatli qoʻshildi!', category='success')
         return redirect(url_for('routes.index'))
     return render_template('create.html', form=form)
+
