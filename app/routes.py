@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import login_required, current_user
 from .forms import FikrForm
 from .models import Fikr
@@ -57,3 +57,13 @@ def delete_fikr(id):
     db.session.commit()
     flash('Fikr muvaffaqiyatli oʻchirildi!', category='success')
     return redirect(url_for('routes.index'))
+
+@bp.route('/search')
+@login_required
+def search():
+    query = request.args.get('q', '')
+    if query:
+        results = Fikr.query.filter(Fikr.title.ilike(f'%{query}%') | Fikr.content.ilike(f'%{query}%')).order_by(Fikr.created_at.desc()).all()
+    else:
+        results = []
+    return render_template('search.html', results=results, query=query)

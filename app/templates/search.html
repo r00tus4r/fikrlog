@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Qidiruv{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <form method="GET" action="{{ url_for('routes.search') }}" class="input-group mb-4">
+            <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Fikr qidirish..." required>
+            <button type="submit" class="btn btn-dark">Qidirish</button>
+        </form>
+        {% if results %}
+            <h4 class="mb-4">Natijalar ({{ results|length }})</h4>
+            {% for fikr in results %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="fw-bold">
+                            <a href="{{ url_for('routes.read_fikr', id=fikr.id) }}">{{ fikr.title }}</a>
+                        </h5>
+                        <p class="text-muted mb-1">{{ fikr.created_at.strftime('%d %B %Y') }}</p>
+                        <p>{{ fikr.content[:150] }}{% if fikr.content|length > 150 %}...{% endif %}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% elif query %}
+            <p class="">Hech qanday natija topilmadi.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
