@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_wtf import CSRFProtect
+from datetime import datetime
 
 import os
 import dotenv
@@ -38,6 +39,11 @@ def create_app():
     @app.errorhandler(403)
     def forbidden(e):
         return render_template('403.html'), 403
+
+    @app.context_processor
+    def inject_now():
+        return {'now': datetime.utcnow}
+
 
     from .models import User
 
