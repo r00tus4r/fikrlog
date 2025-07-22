@@ -12,9 +12,17 @@
             {% endif %}
         </h6>
         <p class="fs-5 mb-0">{{ fikr.content }}</p>
+
+        {% if current_user.is_authenticated and fikr.author == current_user %}
         <hr class="my-5">
-        <a href="{{ url_for('routes.update_fikr', id=fikr.id) }}" class="btn btn-dark"><i class="bi bi-pencil-square"></i> Yanglish</a>
-        <a href="{{ url_for('routes.delete_fikr', id=fikr.id) }}" class="btn btn-danger"><i class="bi bi-trash3"></i> Oʻchirish</a>
+        <a href="{{ url_for('routes.update_fikr', id=fikr.id) }}" class="btn btn-dark">
+            <i class="bi bi-pencil-square"></i> Yangilash
+        </a>
+        <a href="{{ url_for('routes.delete_fikr', id=fikr.id) }}" class="btn btn-danger"
+            onclick="return confirm('Haqiqatan ham oʻchirmoqchimisiz?');">
+            <i class="bi bi-trash3"></i> Oʻchirish
+        </a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
