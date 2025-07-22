@@ -1,19 +1,41 @@
 {% extends 'base.html' %}
 {% block title %}Bosh sahifa{% endblock %}
 {% block content %}
-    <div class="row">
-        <div class="col-12">
-            <h1 class="fw-bold">Bosh sahifa</h1>
-            <p class="mb-4">Yozilgan barcha fikrlaringiz shu yerda saqlanadi.</p>
-            {% if fikrs %}
-                <div class="list-group">
-                    {% for fikr in fikrs %}
-                        <a href="{{ url_for('routes.read_fikr', id=fikr.id) }}" class="list-group-item list-group-item-action">{{ fikr.title }}</a>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p class="">Hozircha hech qanday fikr mavjud emas.</p>
-            {% endif %}
-        </div>
+<div class="row">
+    <div class="col-12">
+        <h1 class="fw-bold">Bosh sahifa</h1>
+        <p class="mb-4">Yozilgan barcha fikrlaringiz shu yerda saqlanadi.</p>
     </div>
+
+    {% if fikrs %}
+        {% for fikr in fikrs %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ fikr.title }}</h5>
+                    <p class="card-text">
+                        {{ fikr.content[:120] }}{% if fikr.content|length > 120 %}...{% endif %}
+                    </p>
+                    <a href="{{ url_for('routes.read_fikr', id=fikr.id) }}" class="btn btn-sm btn-outline-secondary mt-auto">Batafsil</a>
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center small text-muted">
+                    <span>{{ fikr.created_at.strftime('%d-%b, %Y') }}</span>
+                    {% if fikr.author.id == current_user.id %}
+                    <div class="d-flex gap-2">
+                        <a href="{{ url_for('routes.update_fikr', id=fikr.id) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil-square"></i></a>
+                        <a href="{{ url_for('routes.delete_fikr', id=fikr.id) }}"
+                            class="btn btn-sm btn-outline-danger"
+                            onclick="return confirm('Haqiqatan ham oʻchirmoqchimisiz?');"><i class="bi bi-trash3"></i></a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <p>Hozircha hech qanday fikr mavjud emas.</p>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}
